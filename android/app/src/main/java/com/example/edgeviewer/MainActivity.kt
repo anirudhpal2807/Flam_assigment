@@ -8,6 +8,8 @@ import android.widget.TextView
 import android.view.TextureView
 import android.util.Size
 import com.example.edgeviewer.camera.Camera2Controller
+import com.example.edgeviewer.processing.FrameProcessor
+import java.nio.ByteBuffer
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,6 +37,24 @@ class MainActivity : ComponentActivity() {
 
         ensurePermissions()
         tryStartCamera()
+
+        // Tap status to process one frame via JNI (grayscale) and show stats
+        statusText.setOnClickListener {
+            val textureView = findViewById<TextureView>(R.id.textureView)
+            val rgba = FrameProcessor.captureRgba(textureView)
+            if (rgba == null) {
+                statusText.text = "No frame"
+                return@setOnClickListener
+            }
+            val w = textureView.width
+            val h = textureView.height
+            val stride = w * 4
+            val t0 = System.nanoTime()
+            val gray: ByteBuffer? = FrameProcessor.toGrayscale(rgba, w, h, stride)
+            val dtMs = (System.nanoTime() - t0) / 1_000_000.0
+            val size = gray?.capacity() ?: 0
+            statusText.text = "Gray: ${size}B | ${w}x${h} | ${"%.1f".format(dtMs)}ms"
+        }
     }
 
     private fun ensurePermissions() {
