@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #include "jni_bridge.hpp"
+#include "gl_bridge.hpp"
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_example_edgeviewer_MainActivity_stringFromJNI(
@@ -8,6 +9,37 @@ Java_com_example_edgeviewer_MainActivity_stringFromJNI(
         jobject /* this */) {
     std::string hello = "Hello from C++ (NDK scaffold)";
     return env->NewStringUTF(hello.c_str());
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_example_edgeviewer_GLBridge_initWithSurface(
+        JNIEnv* env,
+        jobject /* thiz */,
+        jobject surface) {
+    return edgeviewer_gl_jni::initWithSurface(env, surface) ? JNI_TRUE : JNI_FALSE;
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_example_edgeviewer_GLBridge_renderFrame(
+        JNIEnv* /* env */,
+        jobject /* thiz */) {
+    return edgeviewer_gl_jni::renderFrame() ? JNI_TRUE : JNI_FALSE;
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_example_edgeviewer_GLBridge_resize(
+        JNIEnv* /* env */,
+        jobject /* thiz */,
+        jint width,
+        jint height) {
+    edgeviewer_gl_jni::resize(width, height);
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_example_edgeviewer_GLBridge_shutdown(
+        JNIEnv* /* env */,
+        jobject /* thiz */) {
+    edgeviewer_gl_jni::shutdown();
 }
 
 extern "C" JNIEXPORT jobject JNICALL
