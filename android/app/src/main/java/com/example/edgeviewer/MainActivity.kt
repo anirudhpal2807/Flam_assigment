@@ -13,6 +13,7 @@ import com.example.edgeviewer.util.FpsMeter
 import android.os.Looper
 import android.os.Handler
 import android.view.Surface
+import android.widget.Button
 import java.nio.ByteBuffer
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
     private var renderHandler: Handler? = null
     private val fpsMeter = FpsMeter()
     private var rendering = false
+    private var useCanny = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,13 @@ class MainActivity : ComponentActivity() {
             } else {
                 statusText.text = "Gray failed | ${w}x${h} | ${"%.1f".format(dtMs)}ms"
             }
+        }
+
+        // Toggle between GRAY and CANNY
+        val toggleButton = findViewById<Button>(R.id.toggleButton)
+        toggleButton.setOnClickListener {
+            useCanny = !useCanny
+            toggleButton.text = if (useCanny) "Mode: CANNY" else "Mode: GRAY"
         }
     }
 
@@ -119,10 +128,13 @@ class MainActivity : ComponentActivity() {
                 if (w > 0 && h > 0) {
                     val rgba = FrameProcessor.captureRgba(textureView)
                     if (rgba != null) {
-                        val gray = FrameProcessor.toGrayscale(rgba, w, h, w * 4)
-                        if (gray != null) {
-                            GLBridge.uploadGrayTexture(gray, w, h)
+                        val buffer: ByteBuffer? = if (useCanny) {
+                            // Reuse grayscale for now if Canny not linked; thresholds 50/150 typical
+                            NativeBridge.processCanny(rgba, w, h, w * 4, 50.0, 150.0)
+                        } else {
+                            FrameProcessor.toGrayscale(rgba, w, h, w * 4)
                         }
+                        if (buffer != null) GLBridge.uploadGrayTexture(buffer, w, h)
                     }
                 }
                 GLBridge.renderFrame()

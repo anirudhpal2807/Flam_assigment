@@ -17,6 +17,14 @@
         android:textColor="#FFFFFF"
         android:background="#66000000" />
 
+    <Button
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mode: GRAY"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp" />
+
 </FrameLayout>
 
 

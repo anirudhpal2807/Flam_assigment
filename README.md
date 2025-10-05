@@ -55,6 +55,22 @@ Web:
 2. `npm install`
 3. `npm run build` (outputs to `dist/`) or `npm run dev` for a simple static server.
 
+## OpenCV Setup (Optional, Enables Native Canny)
+This project can build and run without OpenCV (it will fall back to grayscale in native code). To enable native OpenCV Canny:
+
+1. Install OpenCV for Android (OpenCV SDK, e.g., 4.x). Note the `OpenCV_DIR` path that contains `OpenCVConfig.cmake`.
+2. In your local build configuration, set `OpenCV_DIR` when configuring CMake. For Android Studio, you can set an environment variable or pass via Gradle CMake arguments.
+   - Example (environment): set `OpenCV_DIR` to `.../OpenCV-android-sdk/sdk/native/jni`.
+3. Rebuild. The build will define `EDGEVIEWER_USE_OPENCV` and link `core` and `imgproc`.
+
+Notes:
+- If `OpenCV_DIR` is not provided, the build uses a CPU grayscale fallback for Canny.
+- Ensure ABI compatibility (e.g., `arm64-v8a`, `armeabi-v7a`) between your OpenCV prebuilt libs and app ABIs.
+
+## Run-time Notes
+- Tap the status text to capture one frame, process to grayscale via JNI, and save a PNG to `Pictures/EdgeViewer`.
+- Use the Mode button to toggle between GRAY and CANNY. The renderer shows FPS. When OpenCV is configured, CANNY uses native OpenCV; otherwise it falls back gracefully.
+
 ## Roadmap toward Assessment Requirements
 This repo will evolve over ~50 commits to keep history granular and meaningful.
 
