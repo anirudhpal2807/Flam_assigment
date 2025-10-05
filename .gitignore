@@ -1,0 +1,23 @@
+# Android
+android/.gradle/
+android/.idea/
+android/build/
+android/app/build/
+android/local.properties
+
+# NDK/CMake
+**/cmake-build-*/
+**/externalNativeBuild/
+
+# Web/Node
+web/node_modules/
+web/dist/
+web/.cache/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.iml
+*.log
+
+
