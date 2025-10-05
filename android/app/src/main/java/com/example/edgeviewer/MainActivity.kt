@@ -12,12 +12,20 @@ import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
 
+    companion object {
+        init {
+            System.loadLibrary("edgeviewer")
+        }
+    }
+
+    external fun stringFromJNI(): String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val statusText = findViewById<TextView>(R.id.statusText)
-        statusText.text = "Scaffold ready (JNI/GL to be wired)."
+        statusText.text = stringFromJNI()
 
         ensurePermissions()
     }
