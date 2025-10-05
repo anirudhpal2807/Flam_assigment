@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import android.view.TextureView
+import android.util.Size
+import com.example.edgeviewer.camera.Camera2Controller
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -20,6 +22,8 @@ class MainActivity : ComponentActivity() {
 
     external fun stringFromJNI(): String
 
+    private lateinit var cameraController: Camera2Controller
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,7 +31,10 @@ class MainActivity : ComponentActivity() {
         val statusText = findViewById<TextView>(R.id.statusText)
         statusText.text = stringFromJNI()
 
+        cameraController = Camera2Controller(this)
+
         ensurePermissions()
+        tryStartCamera()
     }
 
     private fun ensurePermissions() {
@@ -38,6 +45,45 @@ class MainActivity : ComponentActivity() {
                 ActivityCompat.requestPermissions(this, perms, 100)
             }
         }
+    }
+
+    private fun tryStartCamera() {
+        val hasCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        if (!hasCamera) return
+
+        val textureView = findViewById<TextureView>(R.id.textureView)
+        val statusText = findViewById<TextView>(R.id.statusText)
+
+        cameraController.startBackgroundThread()
+        cameraController.setUpTextureView(textureView) {
+            cameraController.openBackCamera(
+                onOpened = {
+                    runOnUiThread { statusText.text = "Camera opened" }
+                    cameraController.startPreview(textureView, Size(textureView.width, textureView.height))
+                },
+                onError = { code ->
+                    runOnUiThread { statusText.text = "Camera error: $code" }
+                }
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            tryStartCamera()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tryStartCamera()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cameraController.close()
+        cameraController.stopBackgroundThread()
     }
 }
 
