@@ -42,6 +42,18 @@ Java_com_example_edgeviewer_GLBridge_shutdown(
     edgeviewer_gl_jni::shutdown();
 }
 
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_example_edgeviewer_GLBridge_uploadGrayTexture(
+        JNIEnv* env,
+        jobject /* thiz */,
+        jobject buffer,
+        jint width,
+        jint height) {
+    uint8_t* data = static_cast<uint8_t*>(env->GetDirectBufferAddress(buffer));
+    if (!data) return JNI_FALSE;
+    return edgeviewer_gl_jni::uploadGrayTexture(data, width, height) ? JNI_TRUE : JNI_FALSE;
+}
+
 extern "C" JNIEXPORT jobject JNICALL
 Java_com_example_edgeviewer_NativeBridge_processGrayscale(
         JNIEnv* env,

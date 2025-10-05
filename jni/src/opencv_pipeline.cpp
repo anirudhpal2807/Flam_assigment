@@ -2,6 +2,12 @@
 
 #include <algorithm>
 
+// Enable OpenCV Canny when OpenCV is available and this macro is defined via build flags
+#ifdef EDGEVIEWER_USE_OPENCV
+#include <opencv2/imgproc.hpp>
+#include <opencv2/core.hpp>
+#endif
+
 namespace edgeviewer {
 
 static inline size_t requiredGrayBytes(int width, int height) {
@@ -46,14 +52,46 @@ bool processGrayscale(const ImageView& inputRgba,
 }
 
 bool processCannyEdges(const ImageView& inputRgba,
-                       double /*lowThreshold*/,
-                       double /*highThreshold*/,
+                       double lowThreshold,
+                       double highThreshold,
                        uint8_t* outBuffer,
                        size_t outBufferSize,
                        size_t& outBytesWritten) {
-    // Placeholder: produce a grayscale mask identical to processGrayscale.
-    // Will be replaced with real OpenCV Canny in a later commit.
+#ifdef EDGEVIEWER_USE_OPENCV
+    if (inputRgba.data == nullptr || inputRgba.width <= 0 || inputRgba.height <= 0 || inputRgba.channels < 3) {
+        outBytesWritten = 0;
+        return false;
+    }
+
+    const size_t need = requiredGrayBytes(inputRgba.width, inputRgba.height);
+    if (outBuffer == nullptr || outBufferSize < need) {
+        outBytesWritten = need;
+        return false;
+    }
+
+    // Wrap input RGBA
+    const int type = (inputRgba.channels == 4) ? CV_8UC4 : CV_8UC3;
+    cv::Mat src(inputRgba.height, inputRgba.width, type, const_cast<uint8_t*>(inputRgba.data), inputRgba.stride);
+    cv::Mat gray, edges;
+    if (type == CV_8UC4) {
+        cv::cvtColor(src, gray, cv::COLOR_RGBA2GRAY);
+    } else {
+        cv::cvtColor(src, gray, cv::COLOR_RGB2GRAY);
+    }
+    cv::Canny(gray, edges, lowThreshold, highThreshold, 3, true);
+
+    // Copy to output (single-channel)
+    if (static_cast<size_t>(edges.total()) != need) {
+        outBytesWritten = 0;
+        return false;
+    }
+    std::memcpy(outBuffer, edges.data, need);
+    outBytesWritten = need;
+    return true;
+#else
+    // Fallback to grayscale if OpenCV is not enabled in this build
     return processGrayscale(inputRgba, outBuffer, outBufferSize, outBytesWritten);
+#endif
 }
 
 } // namespace edgeviewer

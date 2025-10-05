@@ -10,4 +10,16 @@ add_library(edgeopencv STATIC
 
 target_include_directories(edgeopencv PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
+# Optional OpenCV integration (define OpenCV_DIR to enable)
+set(EDGEVIEWER_USE_OPENCV OFF)
+if (DEFINED OpenCV_DIR)
+    find_package(OpenCV REQUIRED core imgproc)
+    if (OpenCV_FOUND)
+        target_include_directories(edgeopencv PUBLIC ${OpenCV_INCLUDE_DIRS})
+        target_link_libraries(edgeopencv ${OpenCV_LIBS})
+        target_compile_definitions(edgeopencv PUBLIC EDGEVIEWER_USE_OPENCV=1)
+        set(EDGEVIEWER_USE_OPENCV ON)
+    endif()
+endif()
+
 

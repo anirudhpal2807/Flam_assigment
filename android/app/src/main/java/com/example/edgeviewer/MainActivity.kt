@@ -9,6 +9,10 @@ import android.view.TextureView
 import android.util.Size
 import com.example.edgeviewer.camera.Camera2Controller
 import com.example.edgeviewer.processing.FrameProcessor
+import com.example.edgeviewer.util.FpsMeter
+import android.os.Looper
+import android.os.Handler
+import android.view.Surface
 import java.nio.ByteBuffer
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
@@ -25,6 +29,9 @@ class MainActivity : ComponentActivity() {
     external fun stringFromJNI(): String
 
     private lateinit var cameraController: Camera2Controller
+    private var renderHandler: Handler? = null
+    private val fpsMeter = FpsMeter()
+    private var rendering = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,12 +92,46 @@ class MainActivity : ComponentActivity() {
                 onOpened = {
                     runOnUiThread { statusText.text = "Camera opened" }
                     cameraController.startPreview(textureView, Size(textureView.width, textureView.height))
+                    // Initialize GL on the same TextureView's Surface and start a simple render loop
+                    val surf = Surface(textureView.surfaceTexture)
+                    if (GLBridge.initWithSurface(surf)) {
+                        startRenderLoop(statusText)
+                    }
                 },
                 onError = { code ->
                     runOnUiThread { statusText.text = "Camera error: $code" }
                 }
             )
         }
+    }
+
+    private fun startRenderLoop(statusText: TextView) {
+        if (rendering) return
+        rendering = true
+        if (renderHandler == null) renderHandler = Handler(Looper.getMainLooper())
+        val loop = object : Runnable {
+            override fun run() {
+                if (!rendering) return
+                // Try to grab a frame from TextureView, process grayscale via JNI, upload to GL
+                val textureView = findViewById<TextureView>(R.id.textureView)
+                val w = textureView.width
+                val h = textureView.height
+                if (w > 0 && h > 0) {
+                    val rgba = FrameProcessor.captureRgba(textureView)
+                    if (rgba != null) {
+                        val gray = FrameProcessor.toGrayscale(rgba, w, h, w * 4)
+                        if (gray != null) {
+                            GLBridge.uploadGrayTexture(gray, w, h)
+                        }
+                    }
+                }
+                GLBridge.renderFrame()
+                val fps = fpsMeter.tick()
+                if (fps > 0.0) statusText.text = "FPS: ${"%.1f".format(fps)}"
+                renderHandler?.postDelayed(this, 16L)
+            }
+        }
+        renderHandler?.post(loop)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -107,6 +148,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onPause() {
         super.onPause()
+        rendering = false
         cameraController.close()
         cameraController.stopBackgroundThread()
     }

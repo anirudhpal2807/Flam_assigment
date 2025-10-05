@@ -14,6 +14,9 @@ bool renderFrame();
 // Resize viewport
 void resize(int width, int height);
 
+// Upload a grayscale image as texture for rendering
+bool uploadGrayTexture(const uint8_t* data, int width, int height);
+
 // Destroy GL resources
 void shutdown();
 

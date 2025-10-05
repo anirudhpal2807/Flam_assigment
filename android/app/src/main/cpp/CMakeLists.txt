@@ -10,6 +10,9 @@ add_library(edgeviewer SHARED
 )
 
 find_library(log-lib log)
+find_library(android-lib android)
+find_library(egl-lib EGL)
+find_library(gles-lib GLESv2)
 
 # Bring in the OpenCV pipeline static lib defined under /jni
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../../../jni ${CMAKE_CURRENT_BINARY_DIR}/jni_build)
@@ -23,6 +26,9 @@ target_include_directories(edgeviewer PRIVATE
 
 target_link_libraries(edgeviewer
     ${log-lib}
+    ${android-lib}
+    ${egl-lib}
+    ${gles-lib}
     edgeopencv
     edgegl
 )

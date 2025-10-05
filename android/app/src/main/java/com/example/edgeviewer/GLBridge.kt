@@ -11,6 +11,8 @@ object GLBridge {
     external fun renderFrame(): Boolean
     external fun resize(width: Int, height: Int)
     external fun shutdown()
+
+    external fun uploadGrayTexture(buffer: java.nio.ByteBuffer, width: Int, height: Int): Boolean
 }
 
 
