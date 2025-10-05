@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "tsc && cp public/index.html dist/index.html",
+    "build": "tsc && node -e \"const fs=require('fs');fs.copyFileSync('public/index.html','dist/index.html');\"",
     "dev": "npm run build && npx http-server dist -p 5173 -c-1"
   },
   "devDependencies": {
