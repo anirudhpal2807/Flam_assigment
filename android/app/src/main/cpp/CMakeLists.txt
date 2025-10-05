@@ -6,10 +6,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(edgeviewer SHARED
     native-lib.cpp
+    jni_bridge.cpp
 )
 
 find_library(log-lib log)
 
-target_link_libraries(edgeviewer ${log-lib})
+# Bring in the OpenCV pipeline static lib defined under /jni
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../../../jni ${CMAKE_CURRENT_BINARY_DIR}/jni_build)
+
+target_include_directories(edgeviewer PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}
+    ${CMAKE_CURRENT_LIST_DIR}/../../../jni/src
+)
+
+target_link_libraries(edgeviewer
+    ${log-lib}
+    edgeopencv
+)
 
 
