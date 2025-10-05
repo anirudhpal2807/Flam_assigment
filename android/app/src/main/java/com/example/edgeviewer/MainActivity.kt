@@ -53,7 +53,12 @@ class MainActivity : ComponentActivity() {
             val gray: ByteBuffer? = FrameProcessor.toGrayscale(rgba, w, h, stride)
             val dtMs = (System.nanoTime() - t0) / 1_000_000.0
             val size = gray?.capacity() ?: 0
-            statusText.text = "Gray: ${size}B | ${w}x${h} | ${"%.1f".format(dtMs)}ms"
+            if (gray != null) {
+                val uri = com.example.edgeviewer.processing.ImageSaver.saveGrayscalePng(this, gray, w, h)
+                statusText.text = "Saved: ${uri ?: "(failed)"}\n${size}B | ${w}x${h} | ${"%.1f".format(dtMs)}ms"
+            } else {
+                statusText.text = "Gray failed | ${w}x${h} | ${"%.1f".format(dtMs)}ms"
+            }
         }
     }
 
