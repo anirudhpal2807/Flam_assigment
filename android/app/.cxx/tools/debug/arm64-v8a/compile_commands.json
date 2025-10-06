@@ -1,0 +1,32 @@
+[
+{
+  "directory": "C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/arm64-v8a",
+  "command": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android24 --sysroot=C:/Users/DELL/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dedgeviewer_EXPORTS -IC:/Company_Assignment/Flam/android/app/src/main/cpp -IC:/Company_Assignment/Flam/jni/src -IC:/Company_Assignment/Flam/gl/src -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -O2 -fno-limit-debug-info  -fPIC -std=c++17 -o CMakeFiles\\edgeviewer.dir\\native-lib.cpp.o -c C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\native-lib.cpp",
+  "file": "C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\native-lib.cpp"
+},
+{
+  "directory": "C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/arm64-v8a",
+  "command": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android24 --sysroot=C:/Users/DELL/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dedgeviewer_EXPORTS -IC:/Company_Assignment/Flam/android/app/src/main/cpp -IC:/Company_Assignment/Flam/jni/src -IC:/Company_Assignment/Flam/gl/src -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -O2 -fno-limit-debug-info  -fPIC -std=c++17 -o CMakeFiles\\edgeviewer.dir\\jni_bridge.cpp.o -c C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\jni_bridge.cpp",
+  "file": "C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\jni_bridge.cpp"
+},
+{
+  "directory": "C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/arm64-v8a",
+  "command": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android24 --sysroot=C:/Users/DELL/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dedgeviewer_EXPORTS -IC:/Company_Assignment/Flam/android/app/src/main/cpp -IC:/Company_Assignment/Flam/jni/src -IC:/Company_Assignment/Flam/gl/src -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -O2 -fno-limit-debug-info  -fPIC -std=c++17 -o CMakeFiles\\edgeviewer.dir\\gl_bridge.cpp.o -c C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\gl_bridge.cpp",
+  "file": "C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\gl_bridge.cpp"
+},
+{
+  "directory": "C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/arm64-v8a",
+  "command": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android24 --sysroot=C:/Users/DELL/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dedgeviewer_EXPORTS -IC:/Company_Assignment/Flam/android/app/src/main/cpp -IC:/Company_Assignment/Flam/jni/src -IC:/Company_Assignment/Flam/gl/src -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -O2 -fno-limit-debug-info  -fPIC -std=c++17 -o CMakeFiles\\edgeviewer.dir\\egl_wrapper.cpp.o -c C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\egl_wrapper.cpp",
+  "file": "C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\egl_wrapper.cpp"
+},
+{
+  "directory": "C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/arm64-v8a",
+  "command": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android24 --sysroot=C:/Users/DELL/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -IC:/Company_Assignment/Flam/jni/src -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -O2 -fno-limit-debug-info  -fPIC -std=c++17 -o jni_build\\CMakeFiles\\edgeopencv.dir\\src\\opencv_pipeline.cpp.o -c C:\\Company_Assignment\\Flam\\jni\\src\\opencv_pipeline.cpp",
+  "file": "C:\\Company_Assignment\\Flam\\jni\\src\\opencv_pipeline.cpp"
+},
+{
+  "directory": "C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/arm64-v8a",
+  "command": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android24 --sysroot=C:/Users/DELL/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -IC:/Company_Assignment/Flam/gl/src -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -O2 -fno-limit-debug-info  -fPIC -std=c++17 -o gl_build\\CMakeFiles\\edgegl.dir\\src\\gl_renderer.cpp.o -c C:\\Company_Assignment\\Flam\\gl\\src\\gl_renderer.cpp",
+  "file": "C:\\Company_Assignment\\Flam\\gl\\src\\gl_renderer.cpp"
+}
+]

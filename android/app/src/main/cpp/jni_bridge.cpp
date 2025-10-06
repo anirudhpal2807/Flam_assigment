@@ -1,5 +1,5 @@
 #include "jni_bridge.hpp"
-#include "../../../jni/src/opencv_pipeline.hpp"
+#include "../../../../../jni/src/opencv_pipeline.hpp"
 
 #include <vector>
 #include <android/log.h>

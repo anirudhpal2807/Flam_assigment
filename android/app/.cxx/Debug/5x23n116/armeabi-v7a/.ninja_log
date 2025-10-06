@@ -1,0 +1,10 @@
+# ninja log v5
+24	548	7814609758993863	CMakeFiles/edgeviewer.dir/gl_bridge.cpp.o	715675c566886579
+36	984	7814609764397652	CMakeFiles/edgeviewer.dir/egl_wrapper.cpp.o	253f1f2c0d3485de
+63	1074	7814609764843887	gl_build/CMakeFiles/edgegl.dir/src/gl_renderer.cpp.o	b23784dc9138b173
+1075	1407	7814609768331093	gl_build/libedgegl.a	75a2543adbec8b74
+50	2663	7814609781400199	jni_build/CMakeFiles/edgeopencv.dir/src/opencv_pipeline.cpp.o	ad244add98983b31
+13	2694	7814609781647510	CMakeFiles/edgeviewer.dir/jni_bridge.cpp.o	2a869ce369e39d4
+1	2756	7814609782337820	CMakeFiles/edgeviewer.dir/native-lib.cpp.o	de7696c9cc7097d8
+2674	2788	7814609782608346	jni_build/libedgeopencv.a	33d304eea02c4d4d
+2789	2937	7814609784211581	C:/Company_Assignment/Flam/android/app/build/intermediates/cxx/Debug/5x23n116/obj/armeabi-v7a/libedgeviewer.so	4e8fbe1b93682924

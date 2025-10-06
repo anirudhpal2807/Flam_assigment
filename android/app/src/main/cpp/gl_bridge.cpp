@@ -1,6 +1,6 @@
 #include "gl_bridge.hpp"
 #include "egl_wrapper.hpp"
-#include "../../../gl/src/gl_renderer.hpp"
+#include "../../../../../gl/src/gl_renderer.hpp"
 
 namespace {
     EGLContextWrapper g_egl;

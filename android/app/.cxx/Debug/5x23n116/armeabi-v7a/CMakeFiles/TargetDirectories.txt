@@ -1,0 +1,9 @@
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/CMakeFiles/edgeviewer.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/jni_build/CMakeFiles/edgeopencv.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/jni_build/CMakeFiles/edit_cache.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/jni_build/CMakeFiles/rebuild_cache.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/gl_build/CMakeFiles/edgegl.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/gl_build/CMakeFiles/edit_cache.dir
+C:/Company_Assignment/Flam/android/app/.cxx/Debug/5x23n116/armeabi-v7a/gl_build/CMakeFiles/rebuild_cache.dir
