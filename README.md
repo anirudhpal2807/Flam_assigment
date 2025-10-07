@@ -14,7 +14,7 @@ Production‑ready, minimal, and modular. The Android app opens directly into a 
 
 Place the two images below at `docs/media/original.jpg` and `docs/media/edges.jpg` to render in README. The relative paths below are explicit for GitHub/VSC previews:
 
-| Original | Edges |
+| first | second |
 | --- | --- |
 | ![Original](docs/media/original.jpg) | ![Edges](docs/media/edges.jpg) |
 
