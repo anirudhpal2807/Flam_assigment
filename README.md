@@ -16,7 +16,7 @@ Place the two images below at `docs/media/original.jpg` and `docs/media/edges.jp
 
 | Original | Edges |
 | --- | --- |
-| <img src="./docs/media/original.jpg" alt="Original" width="480"/> | <img src="./docs/media/edges.jpg" alt="Edges" width="480"/> |
+| ![Original](docs/media/original.jpg) | ![Edges](docs/media/edges.jpg) |
 
 If you don’t have them yet:
 - Web: open `web/public/index.html`, allow camera, take screenshots of both panels.
