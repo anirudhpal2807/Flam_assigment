@@ -1,0 +1,52 @@
+{
+  "buildFiles": [
+    "C:\\Company_Assignment\\Flam\\android\\app\\src\\main\\cpp\\CMakeLists.txt",
+    "C:\\Company_Assignment\\Flam\\gl\\CMakeLists.txt",
+    "C:\\Company_Assignment\\Flam\\jni\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Company_Assignment\\Flam\\android\\app\\.cxx\\Debug\\1o1y2w6e\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Company_Assignment\\Flam\\android\\app\\.cxx\\Debug\\1o1y2w6e\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "edgegl::@184205987645c9c66eb5": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "edgegl",
+      "output": "C:\\Company_Assignment\\Flam\\android\\app\\.cxx\\Debug\\1o1y2w6e\\x86_64\\gl_build\\libedgegl.a"
+    },
+    "edgeopencv::@2511270ea1f4b4eca1d0": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "edgeopencv",
+      "output": "C:\\Company_Assignment\\Flam\\android\\app\\.cxx\\Debug\\1o1y2w6e\\x86_64\\jni_build\\libedgeopencv.a"
+    },
+    "edgeviewer::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "edgeviewer",
+      "output": "C:\\Company_Assignment\\Flam\\android\\app\\build\\intermediates\\cxx\\Debug\\1o1y2w6e\\obj\\x86_64\\libedgeviewer.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\Users\\DELL\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

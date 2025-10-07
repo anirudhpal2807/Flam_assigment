@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -24,4 +24,125 @@
   </body>
   </html>
 
+ -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>EdgeViewer Live</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --bg: #0b0c10; --panel: #12141a; --text: #d6d7db; --muted:#9aa0a6; --accent:#66fcf1;
+      --border:#1f232b;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    header { display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid var(--border); background:var(--panel); position:sticky; top:0; z-index:1; }
+    header .title { font-weight:700; color:var(--accent); }
+    header .status { margin-left:auto; color:var(--muted); }
+    main { max-width:96vw; margin:24px auto; padding:0 16px; }
+    .controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:12px; color:var(--muted); }
+    .control { display:flex; align-items:center; gap:8px; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .panel { border:1px solid var(--border); border-radius:10px; overflow:hidden; background:#000; box-shadow:0 12px 28px rgba(0,0,0,0.35); }
+    .panel header { padding:10px 14px; background:#0e1117; color:var(--muted); font-size:13px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .meta { display:flex; gap:12px; color:#9aa0a6; font-size:12px; }
+    .badge { background:#141924; border:1px solid #232a36; color:#aeb4bb; padding:2px 6px; border-radius:6px; }
+    canvas { display:block; width:100%; height:auto; }
+    .stats { margin-top:8px; color:var(--muted); font-size:12px; }
+  </style>
+  <script src="/edge.js"></script>
+  </head>
+<body>
+  <header>
+    <div class="title">EdgeViewer</div>
+    <div class="status" id="status">Connecting...</div>
+  </header>
+  <main>
+    <div class="controls">
+      <label class="control">Threshold <input type="range" id="threshold" min="10" max="120" value="40"/></label>
+    </div>
+    <div class="grid">
+      <section class="panel">
+        <header>
+          <span>Original</span>
+          <span class="meta"><span class="badge" id="fpsOrig">FPS: --</span><span class="badge" id="resOrig">--x--</span></span>
+        </header>
+        <canvas id="viewOrig"></canvas>
+      </section>
+      <section class="panel">
+        <header>
+          <span>Edges</span>
+          <span class="meta"><span class="badge" id="fpsEdge">FPS: --</span><span class="badge" id="resEdge">--x--</span></span>
+        </header>
+        <canvas id="viewEdges"></canvas>
+      </section>
+      <img id="camera" alt="Live frame" style="display:none"/>
+      <video id="vsrc" autoplay playsinline muted style="display:none"></video>
+    </div>
+    <div class="stats" id="stats">FPS: -- | Resolution: --</div>
+  </main>
 
+  <script>
+    const status = document.getElementById('status');
+    const stats = document.getElementById('stats');
+    const img = document.getElementById('camera');
+    const canvasOrig = document.getElementById('viewOrig');
+    const canvasEdges = document.getElementById('viewEdges');
+    const threshold = document.getElementById('threshold');
+    const ctxOrig = canvasOrig.getContext('2d');
+    const ctxEdges = canvasEdges.getContext('2d');
+    const vsrc = document.getElementById('vsrc');
+    const fpsOrig = document.getElementById('fpsOrig');
+    const resOrig = document.getElementById('resOrig');
+    const fpsEdge = document.getElementById('fpsEdge');
+    const resEdge = document.getElementById('resEdge');
+
+    let lastTs = 0, fps = 0;
+    function updateFps(){
+      const now = performance.now();
+      if (lastTs) {
+        const dt = now - lastTs; fps = 1000/dt;
+      }
+      lastTs = now;
+    }
+
+    function updateStats(w,h){
+      const fpsText = fps?fps.toFixed(1):'--';
+      stats.textContent = `FPS: ${fpsText} | Resolution: ${w}x${h}`;
+      fpsOrig.textContent = `FPS: ${fpsText}`; resOrig.textContent = `${w}x${h}`;
+      fpsEdge.textContent = `FPS: ${fpsText}`; resEdge.textContent = `${w}x${h}`;
+    }
+
+    async function startCamera(){
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+        vsrc.srcObject = stream;
+        await vsrc.play().catch(()=>{});
+        status.textContent = 'Camera ready';
+
+        function loop(){
+          if (vsrc.readyState >= 2) {
+            const w = vsrc.videoWidth || 640, h = vsrc.videoHeight || 480;
+            if (canvasOrig.width !== w || canvasOrig.height !== h) {
+              canvasOrig.width = w; canvasOrig.height = h;
+              canvasEdges.width = w; canvasEdges.height = h;
+            }
+            ctxOrig.drawImage(vsrc, 0, 0, w, h);
+            Edge.drawEdges(ctxEdges, vsrc, Number(threshold.value));
+            updateFps();
+            updateStats(w,h);
+          }
+          requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+      } catch (e) {
+        status.textContent = 'Camera error';
+        console.error(e);
+      }
+    }
+    startCamera();
+  </script>
+</body>
+</html>

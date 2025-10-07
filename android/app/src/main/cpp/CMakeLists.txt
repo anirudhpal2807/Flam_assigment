@@ -56,4 +56,11 @@ target_link_libraries(edgeviewer
     edgegl
 )
 
+# Ensure PT_LOAD segments are aligned for 16 KB page-size devices (Android 15+ requirement)
+# These options are supported by lld (NDK toolchain linker).
+target_link_options(edgeviewer PRIVATE
+    -Wl,-z,common-page-size=16384
+    -Wl,-z,max-page-size=16384
+)
+
 

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EdgeViewer</string>
+    <string name="starting">Starting...</string>
+    <string name="camera_opened">Camera opened</string>
+    <string name="no_frame">No frame</string>
+    <string name="saved_result">Saved: %1$s\n%2$dB | %3$dx%4$d | %5$.1fms</string>
+    <string name="gray_failed_result">Gray failed | %1$dx%2$d | %3$.1fms</string>
+    <string name="mode_gray">Mode: GRAY</string>
+    <string name="mode_canny">Mode: CANNY</string>
+    <string name="fps_value">FPS: %1$.1f</string>
+    <string name="camera_error">Camera error: %1$d</string>
+    <string name="native_ready">Native ready</string>
 </resources>
 
 

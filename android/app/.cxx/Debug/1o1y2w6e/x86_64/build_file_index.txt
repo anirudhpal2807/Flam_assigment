@@ -1,0 +1,3 @@
+C:\Company_Assignment\Flam\android\app\src\main\cpp\CMakeLists.txt
+C:\Company_Assignment\Flam\gl\CMakeLists.txt
+C:\Company_Assignment\Flam\jni\CMakeLists.txt

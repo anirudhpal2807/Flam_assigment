@@ -9,6 +9,7 @@ import android.os.HandlerThread
 import android.util.Size
 import android.view.Surface
 import android.view.TextureView
+import android.media.ImageReader
 
 class Camera2Controller(private val context: Context) {
 
@@ -31,6 +32,8 @@ class Camera2Controller(private val context: Context) {
         backgroundThread = null
         backgroundHandler = null
     }
+
+    fun getBackgroundHandler(): Handler? = backgroundHandler
 
     fun setUpTextureView(textureView: TextureView, onReady: () -> Unit) {
         if (textureView.isAvailable) {
@@ -68,6 +71,11 @@ class Camera2Controller(private val context: Context) {
         }, backgroundHandler)
     }
 
+    @SuppressLint("MissingPermission")
+    fun openBackCameraWithImageReader(onOpened: () -> Unit, onError: (Int) -> Unit) {
+        openBackCamera(onOpened, onError)
+    }
+
     fun startPreview(textureView: TextureView, desiredSize: Size? = null) {
         val device = cameraDevice ?: return
         val texture = textureView.surfaceTexture ?: return
@@ -76,6 +84,25 @@ class Camera2Controller(private val context: Context) {
             texture.setDefaultBufferSize(desiredSize.width, desiredSize.height)
         }
         val surface = Surface(texture)
+
+        val requestBuilder = device.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW).apply {
+            addTarget(surface)
+        }
+
+        device.createCaptureSession(listOf(surface), object : CameraCaptureSession.StateCallback() {
+            override fun onConfigured(session: CameraCaptureSession) {
+                captureSession = session
+                requestBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+                val request = requestBuilder.build()
+                session.setRepeatingRequest(request, null, backgroundHandler)
+            }
+            override fun onConfigureFailed(session: CameraCaptureSession) {}
+        }, backgroundHandler)
+    }
+
+    fun startImageSession(imageReader: ImageReader) {
+        val device = cameraDevice ?: return
+        val surface = imageReader.surface
 
         val requestBuilder = device.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW).apply {
             addTarget(surface)
